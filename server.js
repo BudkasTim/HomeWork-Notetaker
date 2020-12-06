@@ -17,13 +17,15 @@ var fs = require("fs");
 var app = express();
 
 // Sets an initial port. We"ll use this later in our listener
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3001;
 
 // Sets up the Express app to handle data parsing
 // middle ware for body parsing
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json('public'));
+app.use(express.static('public'));
 app.use(express.json());
+
+
 // ================================================================================
 // ROUTER
 // The below points our server to a series of "route" files.
