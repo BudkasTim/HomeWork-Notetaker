@@ -4,15 +4,17 @@ const path = require('path');
 
 const htmlRouter = express.Router();
 
-// htmlRouter.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, "../public/index.html"));
-// });
-
-htmlRouter.get('*', (req,res) => {
+htmlRouter.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
-})
+});
+
+
 
 htmlRouter.get('/notes', (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/notes.html"));
+})
+
+htmlRouter.get('*', (req,res) => {
   res.sendFile(path.join(__dirname, "../public/notes.html"));
 })
 

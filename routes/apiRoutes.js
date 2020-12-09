@@ -1,15 +1,15 @@
 //modules
 const express = require('express');
-const { fstat } = require('fs');
+const fs = require('fs');
 const path = require('path');
 
 //data files
-const noteData= require('../db/db.json');
+let noteData= require('../db/db.json');
 //const waitlist = require('../data/waitlist');
 
 const apiRouter = express.Router()
 
-apiRouter.get('/api/notes', (req, res) => {
+apiRouter.get('/notes', (req, res) => {
 
     res.json(noteData);
 })
@@ -18,7 +18,7 @@ apiRouter.get('/api/notes', (req, res) => {
 //     res.json(waitlist)
 // })
 
-apiRouter.post('/api/notes', (req, res) => {
+apiRouter.post('/notes', (req, res) => {
 
   // var newNotes=req.body;
         req.body.id = noteData.length+1;
@@ -30,14 +30,18 @@ apiRouter.post('/api/notes', (req, res) => {
        res.json(noteData);
     });
 
-apiRouter.delete('/api/notes', (req, res) => {
+apiRouter.delete('/notes/:id', (req, res) => {
 
         // var newNotes=req.body;
+
         var deleteNote = req.params.id;
+        console.log(typeof deleteNote);
+        console.log(noteData);
+        
         noteData = noteData.filter((note)=>{
-            note.id !=req.params.id;
+            note.id ==parseInt(req.params.id);
         });
-            
+        console.log(noteData);
         fs.writeFile("./db/db.json", JSON.stringify(noteData),function(err){
                  if(err) throw err; 
               })
